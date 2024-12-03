@@ -27,11 +27,15 @@ class Day1:
         ]
 
     @staticmethod
-    def solve() -> int:
+    def solve_part_1() -> int:
         lines = sys.stdin.readlines()
         pairs = Day1.lines_to_tuples(lines)
         sorted_pairs = Day1.sort_each_keys(pairs)
         return Day1.find_total_distance(sorted_pairs)
+
+    @staticmethod
+    def solve_part_2():
+        pass
 
 
 if __name__ == "__main__":

@@ -45,7 +45,7 @@ class TestDay1:
             (4, 3),
         ]
 
-    def test_solve(self, mocker):
+    def test_solve_part_1(self, mocker):
         lines = """3 4
 4 3
 2 5
@@ -53,4 +53,7 @@ class TestDay1:
 3 9
 3 3"""
         with mocker.patch("sys.stdin.readlines", return_value=lines.split("\n")):
-            assert Day1.solve() == 11
+            assert Day1.solve_part_1() == 11
+
+    def test_solve_part_2(self):
+        assert Day1.solve_part_2() is None
