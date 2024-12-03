@@ -39,8 +39,8 @@ class TestDay1:
             Day1.sort_each_keys(self.example_input_pairs) == self.expected_sorted_pairs
         )
 
-    def test_stdin_lines_to_tuples(self):
-        assert Day1.stdin_lines_to_tuples(["3   4", "4   3"]) == [
+    def test_lines_to_tuples(self):
+        assert Day1.lines_to_tuples(["3   4", "4   3"]) == [
             (3, 4),
             (4, 3),
         ]
