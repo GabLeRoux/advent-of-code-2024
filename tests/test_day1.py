@@ -56,6 +56,12 @@ class TestDay1:
         with mocker.patch("sys.stdin.readlines", return_value=self.input_string.split("\n")):
             assert Day1.solve_part_1() == 11
 
+    def test_get_similarity_score(self):
+        assert Day1.get_similarity_score([(1, 1)]) == 1
+        assert Day1.get_similarity_score([(2, 1)]) == 0
+        assert Day1.get_similarity_score([(3, 3), (3, 0)]) == 6
+        assert Day1.get_similarity_score(self.example_input_pairs) == 31
+
     def test_solve_part_2(self, mocker):
         with mocker.patch("sys.stdin.readlines", return_value=self.input_string.split("\n")):
             assert Day1.solve_part_2() == 31

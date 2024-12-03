@@ -35,7 +35,18 @@ class Day1:
 
     @staticmethod
     def solve_part_2():
-        pass
+        lines = sys.stdin.readlines()
+        pairs = Day1.lines_to_tuples(lines)
+        return Day1.get_similarity_score(pairs)
+
+    @staticmethod
+    def get_similarity_score(pairs):
+        x_sorted = sorted(x for x, y in pairs)
+        y_sorted = sorted(y for x, y in pairs)
+        score = 0
+        for x in x_sorted:
+            score += x * y_sorted.count(x)
+        return score
 
 
 if __name__ == "__main__":
