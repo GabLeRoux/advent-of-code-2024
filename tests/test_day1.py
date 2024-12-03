@@ -20,6 +20,13 @@ class TestDay1:
         (4, 9),  # distance: 5
     ]
 
+    input_string = """3   4
+    4   3
+    2   5
+    1   3
+    3   9
+    3   3"""
+
     def test_how_far_apart(self):
         assert Day1.how_far_apart((3, 4)) == 1
         assert Day1.how_far_apart((4, 3)) == 1
@@ -46,14 +53,9 @@ class TestDay1:
         ]
 
     def test_solve_part_1(self, mocker):
-        lines = """3 4
-4 3
-2 5
-1 3
-3 9
-3 3"""
-        with mocker.patch("sys.stdin.readlines", return_value=lines.split("\n")):
+        with mocker.patch("sys.stdin.readlines", return_value=self.input_string.split("\n")):
             assert Day1.solve_part_1() == 11
 
-    def test_solve_part_2(self):
-        assert Day1.solve_part_2() is None
+    def test_solve_part_2(self, mocker):
+        with mocker.patch("sys.stdin.readlines", return_value=self.input_string.split("\n")):
+            assert Day1.solve_part_2() == 31
