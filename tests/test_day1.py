@@ -36,7 +36,7 @@ class TestDay1:
 
     def test_sort_pairs(self):
         assert (
-            Day1.sort_each_keys(self.example_input_pairs) == self.expected_sorted_pairs
+                Day1.sort_each_keys(self.example_input_pairs) == self.expected_sorted_pairs
         )
 
     def test_lines_to_tuples(self):
@@ -44,3 +44,13 @@ class TestDay1:
             (3, 4),
             (4, 3),
         ]
+
+    def test_solve(self, mocker):
+        lines = """3 4
+4 3
+2 5
+1 3
+3 9
+3 3"""
+        with mocker.patch("sys.stdin.readlines", return_value=lines.split("\n")):
+            assert Day1.solve() == 11

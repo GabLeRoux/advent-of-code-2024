@@ -26,11 +26,12 @@ class Day1:
             for parts in (line.split() for line in lines)
         ]
 
-    def solve(self) -> int:
+    @staticmethod
+    def solve() -> int:
         lines = sys.stdin.readlines()
-        pairs = self.lines_to_tuples(lines)
-        sorted_pairs = self.sort_each_keys(pairs)
-        return self.find_total_distance(sorted_pairs)
+        pairs = Day1.lines_to_tuples(lines)
+        sorted_pairs = Day1.sort_each_keys(pairs)
+        return Day1.find_total_distance(sorted_pairs)
 
 
 if __name__ == "__main__":
