@@ -1,0 +1,66 @@
+name: Run Tests and Collect Coverage
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      PYTHON_VERSION: "3.12"
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Cache uv dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/uv
+          key: ${{ runner.os }}-uv-${{ hashFiles('requirements.txt', 'requirements.in') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Create virtual environment using uv
+        run: uv venv --python=${{ env.PYTHON_VERSION }}
+
+      - name: Sync dependencies using uv
+        run: |
+          source .venv/bin/activate
+          uv pip sync requirements.txt
+
+      - name: Run tests with coverage
+        run: |
+          source .venv/bin/activate
+          pytest --cov=src --cov-report=xml --cov-report=html
+
+      - name: Upload coverage report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: htmlcov
+
+      - name: Upload coverage report (coverage.xml)
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: coverage.xml
+
+      - name: Display test results
+        run: |
+          source .venv/bin/activate
+          pytest --maxfail=1 --disable-warnings -v
